@@ -16,7 +16,6 @@
             --bg-light: #f8fafc;
             --border: #e2e8f0;
             --font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            --sidebar-width: 320px;
         }
 
         body {
@@ -27,16 +26,13 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            overflow-x: hidden;
         }
 
         /* Hero Auth Gate design */
         .auth-container {
             max-width: 420px;
-            width: 90%;
-            margin: 40px auto;
-            padding: 30px 20px;
-            box-sizing: border-box;
+            margin: 80px auto;
+            padding: 40px;
             background: #ffffff;
             border-radius: 16px;
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
@@ -47,7 +43,7 @@
         .auth-container h2 {
             margin-top: 0;
             color: var(--primary);
-            font-size: 22px;
+            font-size: 24px;
         }
 
         .auth-container input {
@@ -80,19 +76,16 @@
         /* Header design */
         header {
             background: white;
-            padding: 15px 20px;
+            padding: 20px 40px;
             border-bottom: 1px solid var(--border);
             display: flex;
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 1px 3px rgba(0,0,0,0.02);
-            position: sticky;
-            top: 0;
-            z-index: 100;
         }
 
         .brand-logo {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 800;
             letter-spacing: -0.5px;
             color: var(--primary);
@@ -100,24 +93,9 @@
 
         .brand-sub {
             color: #64748b;
-            font-size: 11px;
+            font-size: 12px;
             font-weight: 400;
             display: block;
-        }
-
-        #userStatus {
-            font-weight: 600;
-            color: var(--accent);
-            background: #eff6ff;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            word-break: break-all;
-            max-width: 150px;
-            text-align: center;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
         }
 
         /* Course List Items */
@@ -141,58 +119,7 @@
         .main-layout {
             display: flex;
             flex: 1;
-            position: relative;
-        }
-
-        /* Sidebar Design with slide-out logic for mobile */
-        .sidebar {
-            width: var(--sidebar-width);
-            border-right: 1px solid var(--border);
-            padding: 25px;
-            background: #f8fafc;
-            box-sizing: border-box;
-            transition: transform 0.3s ease;
-        }
-
-        .content-pane {
-            flex: 1;
-            padding: 30px;
-            background: white;
-            box-sizing: border-box;
-            min-width: 0; /* Prevents flex items from bursting layouts */
-        }
-
-        /* Mobile Action Buttons Bar */
-        .mobile-nav-bar {
-            display: none;
-            background: #ffffff;
-            border-bottom: 1px solid var(--border);
-            padding: 10px 20px;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .mobile-toggle-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 8px 14px;
-            font-size: 13px;
-            font-weight: 600;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-
-        /* Overlay Backdrop for Mobile Menu */
-        .sidebar-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(15, 23, 42, 0.4);
-            z-index: 98;
+            min-height: calc(100vh - 160px);
         }
 
         /* Custom Modern Footer */
@@ -200,8 +127,8 @@
             background: #0f172a;
             color: #94a3b8;
             text-align: center;
-            padding: 24px 15px;
-            font-size: 13px;
+            padding: 24px;
+            font-size: 14px;
             border-top: 1px solid #1e293b;
             margin-top: auto;
         }
@@ -212,109 +139,10 @@
 
         footer .credits {
             margin-top: 8px;
-            font-size: 11px;
+            font-size: 12px;
             color: #64748b;
             text-transform: uppercase;
             letter-spacing: 1px;
-        }
-
-        /* Buttons responsive setup */
-        .btn-container {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .btn-action {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 10px 16px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 14px;
-            cursor: pointer;
-            flex: 1;
-            min-width: 180px;
-            text-align: center;
-            box-sizing: border-box;
-        }
-
-        .btn-primary-action {
-            background: #2563eb;
-            color: white;
-        }
-
-        .btn-secondary-action {
-            background: #64748b;
-            color: white;
-        }
-
-        /* Responsive PDF Container */
-        .iframe-container {
-            width: 100%;
-            height: 800px;
-            border: 1px solid #cbd5e1;
-            border-radius: 8px;
-            overflow: hidden;
-            background-color: #f1f5f9;
-        }
-
-        /* ----------------------------------------------------
-           MEDIA QUERIES (RESPONSIVENESS)
-           ---------------------------------------------------- */
-        @media (max-width: 768px) {
-            header {
-                padding: 12px 15px;
-            }
-            
-            .brand-logo {
-                font-size: 16px;
-            }
-
-            .main-layout {
-                flex-direction: column;
-            }
-
-            /* Enable Mobile Top Menu Action bar */
-            .mobile-nav-bar {
-                display: flex;
-            }
-
-            /* Convert Sidebar into a slide-out drawer on Mobile */
-            .sidebar {
-                position: fixed;
-                top: 0;
-                left: 0;
-                height: 100%;
-                z-index: 99;
-                transform: translateX(-100%);
-                box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1);
-                background: white;
-            }
-
-            .sidebar.active {
-                transform: translateX(0);
-            }
-
-            .sidebar-overlay.active {
-                display: block;
-            }
-
-            .content-pane {
-                padding: 20px 15px;
-            }
-
-            .iframe-container {
-                height: 500px; /* Shorter PDF window on tablets and phones */
-            }
-
-            .btn-action {
-                width: 100%;
-                flex: none;
-            }
         }
     </style>
 </head>
@@ -337,7 +165,7 @@
 
         <!-- Step 2: Hidden Access PIN Input (Revealed post-Google verification) -->
         <div id="pinStep" style="display: none;">
-            <div id="welcomeUser" style="font-size: 14px; font-weight: 600; color: var(--primary); margin-bottom: 10px; word-wrap: break-word;"></div>
+            <div id="welcomeUser" style="font-size: 14px; font-weight: 600; color: var(--primary); margin-bottom: 10px;"></div>
             <input type="password" id="pinInput" placeholder="Enter Student Access PIN">
             <button onclick="verifyPin()">Verify &amp; Unlock</button>
         </div>
@@ -349,38 +177,25 @@
     <div id="appPortal" style="display: none;">
         <header>
             <div>
-                <span class="brand-logo">Ramatechcode Lab Tech</span>
+                <span class="brand-logo">Ramatechcode Lab Technology</span>
                 <span class="brand-sub">Academic Solutions Portal</span>
             </div>
-            <span id="userStatus">Logged In</span>
+            <span id="userStatus" style="font-weight: 600; color: var(--accent); background: #eff6ff; padding: 6px 12px; border-radius: 20px; font-size: 14px;">Logged In</span>
         </header>
-
-        <!-- Mobile Navigation Action Bar -->
-        <div class="mobile-nav-bar">
-            <button class="mobile-toggle-btn" onclick="toggleSidebar()">📖 Open Course List</button>
-            <span style="font-size: 12px; color: #64748b; font-weight: 500;">BCH Catalog</span>
-        </div>
-
-        <!-- Slide Backdrop Overlay -->
-        <div id="sidebarOverlay" class="sidebar-overlay" onclick="toggleSidebar()"></div>
 
         <div class="main-layout">
             <!-- Course Explorer Sidebar -->
-            <div id="sidebarMenu" class="sidebar">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                    <h3 style="margin: 0; color: var(--text-dark); font-size: 16px; font-weight: 700;">Course Explorer</h3>
-                    <!-- Only displays/usable on Mobile devices inside sliding Drawer -->
-                    <button class="mobile-toggle-btn" style="background: #ef4444; padding: 4px 8px; font-size: 11px;" onclick="toggleSidebar()">Close ✕</button>
-                </div>
+            <div class="sidebar" style="width: 320px; border-right: 1px solid var(--border); padding: 25px; background: #f8fafc;">
+                <h3 style="margin-top: 0; color: var(--text-dark); font-size: 16px; font-weight: 700; margin-bottom: 15px;">Course Explorer</h3>
                 <input type="text" id="courseSearch" onkeyup="filterCourses()" placeholder="Search courses (e.g., BCH 303)..." style="width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; outline: none; font-size: 14px; box-sizing: border-box;">
                 <div id="courseList" style="margin-top: 20px;"></div>
             </div>
 
             <!-- Content Area -->
-            <div class="content-pane">
+            <div class="content-pane" style="flex: 1; padding: 40px; background: white;">
                 <div id="documentBody" class="course-document">
                     <h2>Welcome to the Portal</h2>
-                    <p style="color: #64748b;">Select a course from the explorer sidebar to review its fully resolved solutions catalog.</p>
+                    <p style="color: #64748b;">Select a course from the explorer sidebar on the left to review its fully resolved solutions catalog.</p>
                 </div>
             </div>
         </div>
@@ -396,14 +211,6 @@
         let coursesDb = [];
         let activeCourse = null;
         let authenticatedEmail = null; // Holds the Google Email in memory
-
-        // Mobile Sidebar Drawer Toggle helper
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebarMenu');
-            const overlay = document.getElementById('sidebarOverlay');
-            sidebar.classList.toggle('active');
-            overlay.classList.toggle('active');
-        }
 
         // Step 1: Google OAuth Callback
         function handleCredentialResponse(response) {
@@ -501,46 +308,35 @@
         function selectCourse(course) {
             activeCourse = course;
             renderDocument();
-            
-            // Auto close mobile drawer on selection
-            const sidebar = document.getElementById('sidebarMenu');
-            if (sidebar.classList.contains('active')) {
-                toggleSidebar();
-            }
         }
 
         function renderDocument() {
             const body = document.getElementById('documentBody');
             
             body.innerHTML = `
-                <h1 style="margin-bottom: 5px; color: var(--text-dark); font-size: 24px;">${activeCourse.code}: ${activeCourse.title}</h1>
-                <p style="color: #64748b; margin-top: 0; margin-bottom: 25px; font-size: 14px;">Document: <strong>${activeCourse.originalFileName}</strong></p>
+                <h1 style="margin-bottom: 5px; color: var(--text-dark);">${activeCourse.code}: ${activeCourse.title}</h1>
+                <p style="color: #64748b; margin-top: 0; margin-bottom: 25px;">Document: <strong>${activeCourse.originalFileName}</strong></p>
                 
                 <div class="document-section" style="margin-top: 20px; border-top: 1px solid #e2e8f0; padding-top: 20px;">
-                    <h3 style="color: var(--text-dark); font-size: 16px;">Academic Solution Document (PDF)</h3>
+                    <h3 style="color: var(--text-dark);">Academic Solution Document (PDF)</h3>
                     
-                    <div class="btn-container">
-                        <a href="${activeCourse.pdfUrl}" target="_blank" download="${activeCourse.originalFileName}" class="btn-action btn-primary-action">
+                    <div style="margin-bottom: 15px; display: flex; gap: 12px;">
+                        <a href="${activeCourse.pdfUrl}" target="_blank" download="${activeCourse.originalFileName}" class="btn-download" style="display: inline-flex; align-items: center; background: #2563eb; color: white; padding: 10px 16px; border-radius: 6px; text-decoration: none; font-weight: 600; cursor: pointer;">
                             📥 Download Solution PDF
                         </a>
-                        <a href="${activeCourse.pdfUrl}" target="_blank" class="btn-action btn-secondary-action">
+                        <a href="${activeCourse.pdfUrl}" target="_blank" style="display: inline-flex; align-items: center; background: #64748b; color: white; padding: 10px 16px; border-radius: 6px; text-decoration: none; font-weight: 600; cursor: pointer;">
                             🖨️ Print / Open Fullscreen
                         </a>
                     </div>
 
-                    <div class="iframe-container">
+                    <div class="iframe-container" style="width: 100%; height: 800px; border: 1px solid #cbd5e1; border-radius: 8px; overflow: hidden; background-color: #f1f5f9;">
                         <object 
                             data="${activeCourse.pdfUrl}" 
                             type="application/pdf" 
                             width="100%" 
                             height="100%">
                             <embed src="${activeCourse.pdfUrl}" type="application/pdf" />
-                            <div style="padding: 30px; text-align: center;">
-                                <p style="margin-bottom: 15px; color: #475569;">Inline PDF preview is not fully supported on some mobile browsers.</p>
-                                <a href="${activeCourse.pdfUrl}" target="_blank" class="btn-action btn-primary-action" style="display: inline-block;">
-                                    View Document Directly
-                                </a>
-                            </div>
+                            <p style="padding: 20px; text-align: center;">Your browser does not support inline PDF viewing. Please use the download buttons above.</p>
                         </object>
                     </div>
                 </div>
