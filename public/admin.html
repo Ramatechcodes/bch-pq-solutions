@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Administrative Dashboard Panel - Ramatechcode Lab Technology</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --primary: #0f172a;
+            --accent: #2563eb;
+            --danger: #ef4444;
+            --border: #e2e8f0;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Quick Style adjustments */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background-color: #f1f5f9;
+            color: #475569;
+            font-weight: 600;
+        }
+
+        .btn-delete {
+            background: var(--danger);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: opacity 0.2s;
+        }
+
+        .btn-delete:hover {
+            opacity: 0.9;
+        }
+
+        .admin-header {
+            background: #0f172a;
+            color: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Container Card designs */
+        .card {
+            background: white; 
+            padding: 25px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+        }
+
+        .auth-container {
+            max-width: 400px;
+            margin: 100px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+
+        .auth-container input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+
+        .auth-container button {
+            width: 100%;
+            padding: 12px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .btn-map {
+    display: inline-block;
+    background: #e2e8f0;
+    color: #334155;
+    border: none;
+    padding: 3px 8px;
+    margin-left: 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+
+.btn-map:hover {
+    background: #cbd5e1;
+    color: #0f172a;
+}
+.btn-delete-log {
+    background: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fca5a5;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-delete-log:hover {
+    background: #fca5a5;
+    color: #7f1d1d;
+}
+
+    </style>
+</head>
+<body>
+
+    <!-- Authentication Screen -->
+    <div id="authGate" class="auth-container">
+        <h2 style="margin-top:0;">Admin Authentication</h2>
+        <p style="font-size:12px; color:#64748b; margin-top:-10px; margin-bottom:20px;">Ramatechcode Lab Technology</p>
+        <input type="password" id="pinInput" placeholder="Enter Administrative Access PIN">
+        <button onclick="verifyAdminPin()">Unlock Dashboard</button>
+        <p id="errorMsg" style="color: red; display: none;"></p>
+    </div>
+
+    <!-- Active Management Panel -->
+    <div id="adminPanel" style="display: none;">
+        <header class="admin-header">
+            <div>
+                <h1 style="margin:0; font-size: 20px;">Ramatechcode Lab Technology</h1>
+                <span style="font-size: 12px; color: #94a3b8;">Operations Control Dashboard</span>
+            </div>
+            <button onclick="location.reload()" style="background:#334155; color:white; border:none; padding:8px 16px; border-radius:6px; cursor:pointer;">Refresh Portal</button>
+        </header>
+
+        <main style="padding: 40px; max-width: 1600px; margin: 0 auto;">
+            <div style="display: grid; grid-template-columns: 1fr 1.5fr; gap: 40px;">
+                
+                <!-- Column 1: Document Upload & Catalog Management -->
+                <div style="display: flex; flex-direction: column; gap: 30px;">
+                    <!-- Card A: Upload Module -->
+                    <div class="card">
+                        <h3 style="margin-top:0; border-bottom: 1px solid var(--border); padding-bottom:10px;">Upload New Course Solutions</h3>
+                        <input type="text" id="courseCode" placeholder="Course Code (e.g., BCH 303)" style="width: 100%; padding:10px; margin-bottom:10px; border: 1px solid var(--border); border-radius:6px; box-sizing:border-box;">
+                        <input type="text" id="courseTitle" placeholder="Course Title (e.g., Lipid Metabolism)" style="width: 100%; padding:10px; margin-bottom:10px; border: 1px solid var(--border); border-radius:6px; box-sizing:border-box;">
+                        
+                        <div style="margin-top: 15px; padding: 15px; border: 2px dashed #cbd5e1; border-radius: 8px; background-color: #f8fafc;">
+                            <label style="display: block; font-weight: 600; margin-bottom: 5px; color: #334155;">Attach Word Solution Document (.docx / .doc)</label>
+                            <input type="file" id="wordFile" accept=".doc,.docx" style="border: none; padding: 0; background: transparent;">
+                        </div>
+
+                        <h4 style="margin-top: 25px;">Manual Questions & Answers Content (Optional)</h4>
+                        <div id="questionsContainer">
+                            <div class="question-block" style="border: 1px solid var(--border); padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+                                <input type="text" placeholder="Question Part Title (e.g., Question 1a)" class="q-title" style="width:100%; padding:8px; margin-bottom:8px; border:1px solid var(--border); border-radius:4px; box-sizing:border-box;">
+                                <textarea placeholder="Answer text or HTML markup" class="q-body" rows="4" style="width:100%; padding:8px; border:1px solid var(--border); border-radius:4px; box-sizing:border-box;"></textarea>
+                            </div>
+                        </div>
+                        <button onclick="addQuestionBlock()" style="background: #64748b; margin-bottom: 15px; width: 100%; color:white; border:none; padding:10px; border-radius:6px; cursor:pointer;">+ Add Question Part</button>
+                        <button onclick="submitCourse()" style="background: #2563eb; color: white; border:none; width: 100%; padding:12px; border-radius:6px; font-weight:600; cursor:pointer;">Submit and Publish Course</button>
+                    </div>
+
+                    <!-- Card B: Live File Catalog Manager -->
+                    <div class="card">
+                        <h3 style="margin-top:0; border-bottom: 1px solid var(--border); padding-bottom:10px;">Uploaded Files Catalog</h3>
+                        <div style="max-height: 400px; overflow-y: auto;">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Course</th>
+                                        <th>Doc Title</th>
+                                        <th style="text-align: right;">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="coursesCatalogBody">
+                                    <tr>
+                                        <td colspan="3" style="text-align: center; color: #64748b;">Loading dynamic course catalog...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Column 2: Live Activity Logs Module -->
+                <div class="card" style="height: fit-content;">
+                    <h3 style="margin-top:0; border-bottom: 1px solid var(--border); padding-bottom:10px;">Live Student Access & Audit Trail Logs</h3>
+                    <div style="max-height: 800px; overflow-y: auto;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Timestamp</th>
+                                    <th>User Email / Token</th>
+                                    <th>Location</th>
+                                    <th>Device Metadata</th>
+                                </tr>
+                            </thead>
+                            <tbody id="logsTableBody">
+                                <tr>
+                                    <td colspan="4" style="text-align: center; color: #64748b;">Loading logs...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Global memory space
+        let liveCatalog = [];
+
+        async function verifyAdminPin() {
+            const pin = document.getElementById('pinInput').value;
+            const response = await fetch('/api/auth/admin', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ pin })
+            });
+            const data = await response.json();
+            if(data.success) {
+                document.getElementById('authGate').style.display = 'none';
+                document.getElementById('adminPanel').style.display = 'block';
+                loadLogs();
+                loadAdminCoursesCatalog(); // Load courses immediately on authorization
+            } else {
+                const error = document.getElementById('errorMsg');
+                error.innerText = "Access denied. Invalid Administrative security key.";
+                error.style.display = 'block';
+            }
+        }
+
+        // Fetch courses for the admin panel layout
+        async function loadAdminCoursesCatalog() {
+            const container = document.getElementById('coursesCatalogBody');
+            if(!container) return;
+            container.innerHTML = `<tr><td colspan="3" style="text-align: center; color:#64748b;">Syncing database...</td></tr>`;
+
+            try {
+                const res = await fetch('/api/courses');
+                if(!res.ok) throw new Error("Catalog fetch error");
+                liveCatalog = await res.json();
+
+                if(liveCatalog.length === 0) {
+                    container.innerHTML = `<tr><td colspan="3" style="text-align: center; color:#64748b;">No files found in storage.</td></tr>`;
+                    return;
+                }
+
+                container.innerHTML = liveCatalog.map(course => `
+                    <tr>
+                        <td style="font-weight: 600; color: #1e40af;">${course.code}</td>
+                        <td style="font-size: 13px;">${course.title}</td>
+                        <td style="text-align: right;">
+                            <button class="btn-delete" onclick="deleteCourse('${course.id}')">Delete</button>
+                        </td>
+                    </tr>
+                `).join('');
+            } catch (error) {
+                console.error("Error loading admin catalog:", error);
+                container.innerHTML = `<tr><td colspan="3" style="text-align: center; color:#ef4444;">Could not sync catalog database.</td></tr>`;
+            }
+        }
+
+        // Handle deleting course documents
+        async function deleteCourse(courseId) {
+            const confirmDelete = confirm("Are you sure you want to permanently delete this course document? This action will remove the record instantly from the student portal and Firebase storage and cannot be undone.");
+            if (!confirmDelete) return;
+
+            try {
+                const response = await fetch(`/api/courses/${courseId}`, {
+                    method: 'DELETE'
+                });
+                const result = await response.json();
+
+                if (result.success) {
+                    alert("Course successfully deleted and synchronized.");
+                    loadAdminCoursesCatalog(); // Reload catalog layout
+                } else {
+                    alert("Delete process failed: " + result.error);
+                }
+            } catch (err) {
+                console.error("Error calling deletion endpoint:", err);
+                alert("Network communication failure trying to remove course.");
+            }
+        }
+
+        function addQuestionBlock() {
+            const container = document.getElementById('questionsContainer');
+            const div = document.createElement('div');
+            div.className = "question-block";
+            div.style = "border: 1px solid var(--border); padding: 15px; border-radius: 8px; margin-bottom: 15px;";
+            div.innerHTML = `
+                <input type="text" placeholder="Question Part Title (e.g., Question 1b)" class="q-title" style="width:100%; padding:8px; margin-bottom:8px; border:1px solid var(--border); border-radius:4px; box-sizing:border-box;">
+                <textarea placeholder="Answer text or HTML markup" class="q-body" rows="4" style="width:100%; padding:8px; border:1px solid var(--border); border-radius:4px; box-sizing:border-box;"></textarea>
+            `;
+            container.appendChild(div);
+        }
+
+        async function submitCourse() {
+            const code = document.getElementById('courseCode').value;
+            const title = document.getElementById('courseTitle').value;
+            const wordFileInput = document.getElementById('wordFile');
+            const questionBlocks = document.getElementsByClassName('question-block');
+            
+            if (!code || !title) {
+                alert("Please fill out both Course Code and Course Title.");
+                return;
+            }
+
+            const questions = [];
+            for(let block of questionBlocks) {
+                const qTitle = block.querySelector('.q-title').value;
+                const qBody = block.querySelector('.q-body').value;
+                if(qTitle && qBody) {
+                    questions.push({ title: qTitle, body: qBody });
+                }
+            }
+
+            const formData = new FormData();
+            formData.append('code', code);
+            formData.append('title', title);
+            formData.append('questions', JSON.stringify(questions));
+            
+            if (wordFileInput.files.length > 0) {
+                formData.append('wordFile', wordFileInput.files[0]);
+            } else {
+                alert("Please select a Word document to convert and upload.");
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/courses', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+                if (data.success) {
+                    alert("Course solutions saved and published successfully!");
+                    document.getElementById('courseCode').value = "";
+                    document.getElementById('courseTitle').value = "";
+                    wordFileInput.value = "";
+                    loadAdminCoursesCatalog(); // Refresh catalog grid instantly
+                } else {
+                    alert("Failed to save course: " + data.error);
+                }
+            } catch (error) {
+                console.error("Error submitting course:", error);
+                alert("Network communication failure while uploading document.");
+            }
+        }
+
+      // Load and display logs in the table
+async function loadLogs() {
+    const body = document.getElementById('logsTableBody');
+    if (!body) return;
+    body.innerHTML = "";
+
+    try {
+        const res = await fetch('/api/admin/logs');
+        if (!res.ok) {
+            const errData = await res.json().catch(() => ({}));
+            body.innerHTML = `<tr><td colspan="5" style="text-align: center; color: #ef4444;">Error: ${errData.error || 'Server error'}</td></tr>`;
+            return;
+        }
+
+        const logs = await res.json();
+        if (logs.length === 0) {
+            body.innerHTML = `<tr><td colspan="5" style="text-align: center; color: #64748b;">No active logs found yet.</td></tr>`;
+            return;
+        }
+
+        // Update table head structure in your HTML if necessary to include a 5th header column: "Actions"
+        body.innerHTML = logs.map(log => {
+            const loc = log.location || {};
+            const addressText = loc.text || "Unknown";
+            
+            let mapButtonHtml = "";
+            if (loc.lat && loc.lon) {
+                const mapUrl = `https://www.google.com/maps/search/?api=1&query=${loc.lat},${loc.lon}`;
+                mapButtonHtml = `
+                    <a href="${mapUrl}" target="_blank" class="btn-map" title="View location on Google Maps">
+                        🗺️ Map
+                    </a>
+                `;
+            }
+
+            return `
+                <tr id="log-row-${log.id}">
+                    <td>${log.timestamp || 'N/A'}</td>
+                    <td style="font-weight: 600;">${log.email || 'Anonymous'}</td>
+                    <td>
+                        <span style="font-size: 13px;">${addressText}</span>
+                        ${mapButtonHtml}
+                    </td>
+                    <td style="font-size: 13px; color: #475569;">${log.device || 'Unknown Device'}</td>
+                    <td style="text-align: center;">
+                        <button onclick="deleteLog('${log.id}')" class="btn-delete-log" title="Delete this entry">
+                            🗑️ Delete
+                        </button>
+                    </td>
+                </tr>
+            `;
+        }).join('');
+
+    } catch (error) {
+        console.error("Network error fetching logs:", error);
+        body.innerHTML = `<tr><td colspan="5" style="text-align: center; color: #ef4444;">Failed to connect to the server. Please refresh.</td></tr>`;
+    }
+}
+
+// Function to handle log deletion
+async function deleteLog(logId) {
+    if (!confirm("Are you sure you want to permanently delete this audit log entry?")) {
+        return;
+    }
+
+    try {
+        const response = await fetch(`/api/admin/logs/${logId}`, {
+            method: 'DELETE'
+        });
+
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+            // Remove the log row directly from the DOM on successful deletion
+            const row = document.getElementById(`log-row-${logId}`);
+            if (row) {
+                row.remove();
+            }
+        } else {
+            alert(`Error deleting log: ${result.error || 'Failed to complete transaction.'}`);
+        }
+    } catch (error) {
+        console.error("Error communicating with deletion API:", error);
+        alert("A network error occurred. Failed to delete log.");
+    }
+}
+    </script>
+</body>
+</html>

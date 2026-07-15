@@ -1,0 +1,16 @@
+# Dependency directories
+node_modules/
+
+# Local environment files
+.env
+
+# Firebase Private Keys
+firebase-service-account.json
+adminsdk-fbsvc-*.json
+
+# Temporary uploaded/converted files
+temp_uploads/
+
+# Operating system files
+.DS_Store
+Thumbs.db
